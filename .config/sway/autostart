@@ -1,0 +1,60 @@
+# vim:ft=swayconfig
+# @author wkai
+# @since 2023,2024,2025,2026
+
+
+# ~/.config/sway/autostart 
+### 自动启动服务 (Autostart)
+
+## 仅启动一次 (exec)
+# 1. 基础环境配置 (保持图形应用和屏幕共享正常)
+# 将 Wayland 环境变量推送到 D-Bus 和 systemd，确保图形应用（如认证弹窗）正常运行
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+# exec hash dbus-update-activation-environment 2>/dev/null && \
+#      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# 解决屏幕共享/截图可能出现的权限或连接问题
+exec systemctl --user stop xdg-desktop-portal-wlr xdg-desktop-portal
+exec systemctl --user start xdg-desktop-portal-wlr
+# 启动蓝牙托盘管理程序
+exec blueman-applet
+# 启动u盘自动挂载守护进程,-t: 在系统托盘显示图标,-n: 启用桌面通知
+exec udiskie -t -n
+## 剪切板=cliphist
+# 监控文本并自动清理超过 200 条的旧记录
+exec wl-paste --type text --watch bash -c "cliphist store && cliphist wipe-older 200"
+# 监控图片并自动清理超过 200 条的旧记录
+exec wl-paste --type image --watch bash -c "cliphist store && cliphist wipe-older 200"
+# 剪切板每次登录时，只保留最近的 200 条记录
+exec cliphist wipe-older 200
+# kaiji 启动 Clash Verge
+# exec sleep 3 &&  clash-verge
+exec sleep 3 &&  $proxy
+
+
+
+## 每次重载都刷新 (exec_always)
+# 2. 核心守护进程
+# 后台启动 fcitx5 输入法
+exec_always "pgrep fcitx5 || fcitx5 -d"
+# 启动桌面通知守护进程
+exec_always "pgrep mako || mako"
+# 启动 Polkit 认证代理，用于处理涉及 root 权限的操作弹窗
+exec_always "pgrep polkit-gnome || /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+
+# 3. 功能性应用
+# 自动护眼模式：白天 6500K，晚上 5000K
+# -l (纬度) 和 -L (经度) 城市的坐标
+exec_always "pkill wlsunset; sleep 5 && wlsunset -l 25.0 -L 102.4 -t 5000 -T 6500"
+
+# 启动自动锁屏守护进程 (swayidle) $lock_cmd
+exec swayidle -w \
+         timeout 1800 '$lock_cmd' \
+         timeout 1860 'swaymsg "output * dpms off"' \
+         resume 'swaymsg "output * dpms on"' \
+         before-sleep '$lock_cmd'
+
+# 4. 桌面外观
+# 启动时根据 variables 里的定义加载壁纸
+# exec_always "pgrep swaybg || swaybg -i $wallpaper -m fill"
+exec_always "pgrep swaybg || swaybg -i \"$wallpaper\" -m fill"

@@ -1,0 +1,16 @@
+# vim:ft=swayconfig
+# @author wkai
+# @since 2023,2024,2025,2026
+
+
+# ~/.config/sway/colors 
+set $colorbg #000000
+set $colorfg #eeeeee
+set $theme_green #a6e3a1
+set $color14 #427b58
+
+# 格式：<边框> <背景> <文本> <指示符> <子边框>
+client.focused          $focused_border_color $focused_border_color $colorfg $colorbg $focused_border_color
+client.focused_inactive $colorbg  $colorbg  $colorbg  $colorbg  $colorbg
+client.unfocused        $colorbg  $colorbg  $colorfg  $colorbg  $colorbg
+

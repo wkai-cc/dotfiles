@@ -1,0 +1,97 @@
+[manager]
+ratio          = [ 1, 3, 4 ]
+sort_by        = "natural"
+sort_dir_first = true
+show_hidden    = true
+show_line_numbers = "relative"  # 可选值: "false", "absolute", "relative"
+
+[opener]
+# 文本编辑：使用 nvim，block=true 确保在终端内正常交互
+edit = [
+    { run = 'nvim "$@"', block = true, for = "unix" },
+]
+# 视频播放：使用 mpv，orphan=true 使其在后台独立运行
+play = [
+    { run = 'mpv "$@"', orphan = true, for = "unix" },
+]
+# 图片查看：使用 gwenview
+view = [
+    { run = 'gwenview "$@"', orphan = true, for = "unix" },
+]
+# 文件夹打开：使用默认管理器或终端 cd
+reveal = [
+    { run = 'xdg-open "$(dirname "$@")"', desc = "Reveal", for = "unix" },
+]
+
+# 文档查看：推荐使用 zathura (轻量且支持 Vim 快捷键)
+pdf = [
+    { run = 'zathura "$@"', orphan = true, for = "unix" },
+]
+
+# Office 文档：如果你安装了 LibreOffice
+office = [
+    { run = 'libreoffice "$@"', orphan = true, for = "unix" },
+]
+
+# WPS 表格 (Excel)
+wps-et = [
+    { run = 'et "$@"', orphan = true, for = "unix" },
+]
+# WPS 文字 (Word)
+wps-wps = [
+    { run = 'wps "$@"', orphan = true, for = "unix" },
+]
+# WPS 演示 (PPT)
+wps-wpp = [
+    { run = 'wpp "$@"', orphan = true, for = "unix" },
+]
+
+# 压缩包：使用 nvim 打开查看（如果你有插件）或者直接命令行解压
+extract = [
+    { run = 'atool -x "$@"', desc = "Extract here", block = true, for = "unix" },
+]
+
+# 浏览器：用于打开 HTML 或特定链接
+browser = [
+    { run = 'xdg-open "$@"', orphan = true, for = "unix" },
+]
+
+[open]
+rules = [
+    # 视频与图片 (沿用你之前的配置)
+    { mime = "video/*", use = [ "play", "edit" ] },
+    { mime = "image/*", use = [ "view", "edit" ] },
+
+    # PDF 与 电子书
+    { mime = "application/pdf", use = [ "pdf" ] },
+    { mime = "application/epub+zip", use = [ "pdf" ] },
+
+    # Office 文档
+    { mime = "application/{msword,vnd.openxmlformats-officedocument.wordprocessingml.document}", use = [ "office" ] },
+    { mime = "application/{vnd.ms-excel,vnd.openxmlformats-officedocument.spreadsheetml.sheet}", use = [ "office" ] },
+    { mime = "application/{vnd.ms-powerpoint,vnd.openxmlformats-officedocument.presentationml.presentation}", use = [ "office" ] },
+
+    # Excel 表格：优先使用 WPS ET 打开
+    { mime = "application/{vnd.ms-excel,vnd.openxmlformats-officedocument.spreadsheetml.sheet}", use = [ "wps-et", "office" ] },
+
+    # Word 文档：优先使用 WPS Word 打开
+    { mime = "application/{msword,vnd.openxmlformats-officedocument.wordprocessingml.document}", use = [ "wps-wps", "office" ] },
+
+    # PPT 演示：优先使用 WPS WPP 打开
+    { mime = "application/{vnd.ms-powerpoint,vnd.openxmlformats-officedocument.presentationml.presentation}", use = [ "wps-wpp", "office" ] },
+
+    # 网页
+    { mime = "text/html", use = [ "browser", "edit" ] },
+
+    # 压缩包：默认改为解压预览或执行解压命令，不再默认用 nvim 强行打开
+    { mime = "application/{zip,x-tar,x-bzip2,x-gzip,x-7z-compressed,x-rar}", use = [ "extract" ] },
+
+    # 脚本与代码 (合并你之前的规则)
+    { mime = "{text,application}/{plain,json,x-shellscript,x-perl,x-python,x-lua,xml}", use = [ "edit" ] },
+    { name = "*.{md,txt,conf,toml,yaml,yml,lua,sh,py,zsh,js,ts,c,cpp,rs,go,zig}", use = [ "edit" ] },
+]
+
+[preview]
+# Ghostty 原生支持 Kitty 协议，图片预览会非常丝滑
+max_width  = 1500
+max_height = 1500

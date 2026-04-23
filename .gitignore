@@ -1,0 +1,33 @@
+# 忽略所有日志文件
+*.log
+
+# 忽略脚本生成的临时目录
+.local/bin/test/
+
+# 忽略敏感的密钥文件
+.ssh/
+.gnupg/
+
+# 忽略某些软件的缓存
+.cache/
+Code/CachedData/
+Code/Cache/
+
+# 忽略 OneDrive 的一些同步临时文件
+.config/onedrive/.DS_Store
+
+# venv
+.venv/
+
+# 深入屏蔽软件缓存与日志
+**/Cache/
+**/GPUCache/
+**/Code Cache/
+**/logs/
+**/profiler_data/
+**/IndexedDB/
+**/Session Storage/
+**/Local Storage/
+*.bak
+*.sqlite3-shm
+*.sqlite3-wal

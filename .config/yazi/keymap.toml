@@ -1,0 +1,24 @@
+[manager]
+# 智能进入/打开
+[[manager.prepend_keymap]]
+on   = [ "l" ]
+run  = "plugin smart-enter"
+desc = "进入目录或使用默认程序打开文件"
+
+[[manager.prepend_keymap]]
+on   = [ "<Enter>" ]
+run  = "plugin smart-enter"
+desc = "进入目录或使用默认程序打开文件"
+
+# 返回上一级
+[[manager.prepend_keymap]]
+on   = [ "h" ]
+run  = "leave"
+desc = "返回上一级目录"
+
+# 帮助菜单 (覆盖默认的 ?)
+[[manager.prepend_keymap]]
+on   = [ "~" ]
+run  = "help"
+desc = "打开帮助菜单"
+

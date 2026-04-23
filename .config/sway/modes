@@ -1,0 +1,56 @@
+# vim:ft=swayconfig
+# @author wkai
+# @since 2023,2024,2025,2026
+
+
+# ~/.config/sway/modes 
+### 窗口大小调整模式 (Resize Mode)
+mode "resize" {
+# 使用 HJKL 或方向键调整窗口大小
+bindsym $left resize shrink width 10px
+bindsym $down resize grow height 10px
+bindsym $up resize shrink height 10px
+bindsym $right resize grow width 10px
+bindsym Left resize shrink width 10px
+bindsym Down resize grow height 10px
+bindsym Up resize shrink height 10px
+bindsym Right resize grow width 10px
+# 返回默认模式
+bindsym Return mode "default"
+bindsym Escape mode "default"
+}
+# 进入调整模式快捷键 (mod + R)
+bindsym $mod+r mode "resize"
+
+# 选项说明：
+# t: htop (任务管理)
+# n: nmtui (网络)
+# b: bluetoothctl (蓝牙)
+# l: 锁屏 (Lock)
+# s: 睡眠 (Suspend)
+# p: 关机 (Poweroff)
+# r: 重启 (Reboot)
+# e: 退出 Sway (Exit)
+
+mode "System: [t]op [n]et [b]lue [l]ock [s]leep [p]oweroff [r]eboot [e]xit" {
+    # tnb
+    bindsym t exec $term -e htop; mode "default"
+    bindsym n exec $term -e nmtui; mode "default"
+    # bindsym b exec $term -e bluetoothctl; mode "default"
+    # 按下 b 直接打开蓝牙图形管理器
+    bindsym b exec blueman-manager; mode "default"
+
+    # 新增电源管理
+    bindsym l exec $lock_cmd; mode "default"
+    bindsym s exec $lock_sleep_cmd; mode "default"
+    bindsym p exec $shutdown_cmd; mode "default"
+    bindsym r exec $reboot_cmd; mode "default"
+    bindsym e exec swaymsg exit
+
+    # 返回与退出
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# 确保触发快捷键绑定到这个新模式名
+bindsym $mod+Shift+s mode "System: [t]op [n]et [b]lue [l]ock [s]leep [p]oweroff [r]eboot [e]xit"

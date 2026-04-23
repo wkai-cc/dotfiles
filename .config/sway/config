@@ -1,0 +1,52 @@
+# vim:ft=swayconfig
+# @author wkai
+# @since 2023,2024,2025,2026
+
+
+# ~/.config/sway/config
+
+include ~/.config/sway/variables
+include ~/.config/sway/colors
+
+### 显示器与外观配置
+# 硬件型号: HKC IG27Q
+# 使用 2560x1440 分辨率，刷新率设为 144Hz
+output DP-1 mode 2560x1440@144Hz pos 0 0 adaptive_sync on max_render_time 5
+output * bg $wallpaper fill
+# 强制开启 XWayland，提高旧应用的兼容性
+xwayland enable
+# 去掉所有窗口的标题栏和边框
+default_border none
+default_floating_border normal
+### 间隙配置 (Gaps)
+# 窗口之间的间隙
+gaps inner 8
+# 窗口与屏幕边缘的间隙
+gaps outer 4
+# 如果只有一个窗口时，是否保留间隙 (smart_gaps)
+# on: 只有一个窗口时也显示间隙；off: 只有一个窗口时充满全屏
+smart_gaps on
+# 任何窗口全屏时，禁止 swayidle 执行动作,全屏自动禁止休眠
+for_window [shell=".*"] inhibit_idle fullscreen
+
+
+### 输入设备配置
+input "type:keyboard" {
+    # 提高按键响应速度
+    repeat_delay 200
+    repeat_rate 30
+    # 键位定制
+    # caps:swapescape -> CapsLock 变 Esc
+    # altwin:swap_alt_win -> 交换 Alt 和 Win 键
+    # xkb_options caps:swapescape,altwin:swap_alt_win
+}
+
+include ~/.config/sway/rules
+include ~/.config/sway/bindings
+include ~/.config/sway/autostart
+include ~/.config/sway/modes
+
+### 状态栏 (Status Bar)
+bar {
+    swaybar_command waybar
+}
