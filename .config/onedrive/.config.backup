@@ -1,0 +1,14 @@
+# OneDrive 同步目录
+sync_dir = "/mnt/data/OneDrive"
+
+# 启用自动下载和同步 (同步隐藏文件)
+skip_dotfiles = "false"
+
+# 数据盘挂载保护：设为 true 即可，它会自动检测 /mnt/data 是否挂载
+check_nomount = "true"
+
+# 开启桌面通知 (配合你刚装的 mako)
+disable_notifications = "false"
+
+# 当文件同步完成时显示通知
+notify_file_actions = "true"

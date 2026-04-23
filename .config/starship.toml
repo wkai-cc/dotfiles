@@ -1,0 +1,98 @@
+# 禁止在提示符前换行
+add_newline = false
+
+# 根据 schema 提供自动补全
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# 自定义顺序
+format = """
+$time\
+$username\
+[@](bold gray)\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$python\
+$rust\
+$c\
+$docker_context\
+$cmd_duration\
+$character"""
+
+[time]
+disabled = false
+time_format = "%T"
+style = "bold white"
+format = "[$time]($style) "
+
+[username]
+show_always = true
+style_user = "bold green"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+style = "bold white"
+format = "[$hostname]($style) "
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncation_symbol = ".../"
+format = "[$path]($style) "
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+format = "on [$symbol$branch]($style) "
+
+[git_status]
+style = "bold red"
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = "󰞇 "       # 冲突（火苗/爆炸图标）
+ahead = "⇡"            # 本地领先远程（需要 push）
+behind = "⇣"           # 本地落后远程（需要 pull）
+diverged = "󰆼 "        # 分叉
+up_to_date = ""        # 干净时不显示
+untracked = "󰐓 "       # 有新文件（带加号的圆圈）
+stashed = "󰶼 "         # 有暂存内容
+modified = "󰷉 "        # 已修改未提交（铅笔图标）
+staged = "󰐖 "          # 已 git add 但未 commit
+renamed = "󰁔 "         # 重命名了文件
+deleted = "󰆴 "          # 删除了文件
+
+[python]
+symbol = " "
+style = "bold yellow"
+pyenv_prefix = "venv "
+format = "via [${symbol}${pyenv_prefix}(${version} )(\\($virtualenv\\) )]($style)"
+
+[rust]
+symbol = "󱘗 "
+style = "bold orange"
+format = "via [$symbol($version )]($style)"
+
+[c]
+symbol = " "
+style = "bold blue"
+# 只有在检测到项目文件时才显示版本
+format = "via [$symbol($version )]($style)"
+# 默认检测这些文件
+detect_extensions = ["c", "h", "cpp", "hpp"]
+
+[docker_context]
+symbol = "󰡨 "
+style = "bold blue"
+# 只有在目录下有 Dockerfile 或 docker-compose.yml 时显示
+format = "via [$symbol$context]($style) "
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+
+[cmd_duration]
+min_time = 500
+style = "bold yellow"
+format = "took [$duration]($style) "
+
+[character]
+success_symbol = "[❯](bold green)" # 执行成功为绿色的 ❯
+error_symbol = "[❯](bold red)"     # 执行失败为红色的 ❯

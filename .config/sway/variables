@@ -1,0 +1,45 @@
+# vim:ft=swayconfig
+# @author wkai
+# @since 2023,2024,2025,2026
+
+
+# ~/.config/sway/variables 
+### 变量定义 (Variables)
+# 设置 Mod 键为 Win 键 (Mod4)
+set $mod Mod4
+# 定义方向键，映射 HJKL 为上下左右 (类似 Vim)
+set $left h
+set $down j
+set $up k
+set $right l
+# 默认终端模拟器设为 kitty
+set $term kitty
+# 默认应用启动器设为 rofi
+set $menu rofi -show drun --show drun
+# 音乐播放器YesPlayMusic
+set $music yesplaymusic
+# 浏览器=google-chrome
+set $browser google-chrome-stable
+# 代理软件=clash-verge
+set $proxy clash-verge
+# 计算器
+set $calc kcalc
+
+
+# 1. 定义壁纸路径（作为唯一源）
+set $wallpaper /home/wkai/Pictures/wallpaper//wallpaper_11.jpg
+
+# 2. 定义锁屏命令（引用上面的 $wallpaper 变量）
+# 以后想改锁屏样式（比如加虚化），只需改这一行
+set $lock_cmd swaylock -i $wallpaper
+
+
+# 定义电源操作命令
+set $shutdown_cmd systemctl poweroff
+set $reboot_cmd systemctl reboot
+set $sleep_cmd systemctl suspend
+# 锁屏并睡眠（先锁屏确保唤醒时是锁定状态）
+set $lock_sleep_cmd $lock_cmd && systemctl suspend
+
+# 定义聚焦状态的主题色
+set $focused_border_color #94e2d5
