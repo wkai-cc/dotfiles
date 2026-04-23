@@ -21,10 +21,11 @@ exec blueman-applet
 # 启动u盘自动挂载守护进程,-t: 在系统托盘显示图标,-n: 启用桌面通知
 exec udiskie -t -n
 ## 剪切板=cliphist
-# 监控文本并自动清理超过 200 条的旧记录
-exec wl-paste --type text --watch bash -c "cliphist store && cliphist wipe-older 200"
-# 监控图片并自动清理超过 200 条的旧记录
-exec wl-paste --type image --watch bash -c "cliphist store && cliphist wipe-older 200"
+# 1. 纯净监控：只负责实时存入剪切板，不混杂清理命令（提高响应速度）
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
+# 2. 自动清理：每隔 5 分钟在后台悄悄执行一次清理，确保运行期间不堆积
+exec_always "ps aux | grep -v grep | grep 'cliphist wipe-older' || (while true; do cliphist wipe-older 200; sleep 900; done &)"
 # 剪切板每次登录时，只保留最近的 200 条记录
 exec cliphist wipe-older 200
 # kaiji 启动 Clash Verge

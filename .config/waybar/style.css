@@ -60,6 +60,7 @@
 @define-color cyan #689d6a;
 @define-color white #ebdbb2;
 @define-color orange #d65d0e;
+@define-color window-color #282828;
 
 
 
@@ -100,7 +101,7 @@
     /* Base styling for all modules */
     border: none;
     border-radius: 0;
-    font-family: "Iosevka Nerd Font";
+    font-family: "Symbols Nerd Font Mono", "Font Awesome 6 Free", "Iosevka Nerd Font";
     font-size: 14px;
     min-height: 0;
 }
