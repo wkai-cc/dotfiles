@@ -32,7 +32,12 @@ sudo pacman -S sway waybar mako rofi-wayland fcitx5-im fcitx5-chinese-addons
 
 # 其他实用工具
 sudo pacman -S obsidian onedrive-abraunegg obs-studio python uv
+
+# 或者！
+sudo pacman -S --needed - < pkglist.txt（注意甄别）
 ```
+
+
 
 ### 2. 克隆仓库
 将仓库克隆到用户家目录下的 dotfiles 文件夹中：
