@@ -33,6 +33,10 @@ bindsym $mod+c exec $calc
 bindsym $mod+g exec $browser
 # 打开 YesPlayMusic(mod + m)
 bindsym $mod+m exec $music
+# 直接打开图片文件夹(mod + Shift +i)
+# bindsym $mod+Shift+i exec find ~/Pictures -maxdepth 1 -type d | rofi -dmenu -i -p "选择图片目录" | xargs -I {} imv "{}"
+# 使用 nsxiv 并添加 -t 参数，这样打开文件夹直接就是缩略图模式
+bindsym $mod+Shift+i exec find ~/Pictures -maxdepth 1 -type d | rofi -dmenu -i -p "选择图片目录" | xargs -I {} nsxiv -t "{}"
 
 
 ### 焦点切换 (Focus)
@@ -85,8 +89,10 @@ bindsym $mod+Shift+0 move container to workspace number 10
 # 浮动终端监控
 bindsym $mod+Escape exec kitty --class sysmon -e btop
 # 动态增加/减少间隙 (mod + Alt + 加号/减号)
-bindsym $mod+Alt+plus gaps inner current plus 5
+bindsym $mod+Alt+equal gaps inner current plus 5
 bindsym $mod+Alt+minus gaps inner current minus 5
+# 重置当前工作区的间隙为 0 (或者你喜欢的默认值)
+bindsym $mod+Alt+0 gaps inner current set 0
 # 切换水平/垂直分割
 bindsym $mod+b splith
 bindsym $mod+n splitv
@@ -136,3 +142,4 @@ bindsym $mod+Shift+Alt+r exec ~/.local/bin/recorder.sh full
 
 # 开启/关闭按键显示 (Mod + Alt + K)=wshowkeys
 bindsym $mod+Alt+k exec pgrep -x wshowkeys && pkill -x wshowkeys || wshowkeys -a bottom -m 10 -b "#2b3339aa" -f "#a7c080"
+

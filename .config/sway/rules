@@ -46,7 +46,7 @@ for_window [class="yesplaymusic"] move container to workspace number 10
 # 让音乐播放器启动时不要自动夺取焦点
 no_focus [class="yesplaymusic"]
 # 将 QQ 分配到第 4 个工作区,linuxqq 通常使用 app_id (Wayland 原生)
-assign [app_id="QQ"] workspace number 4
+assign [class="QQ"] workspace number 4
 # 将微信分配到第 4 个工作区,微信 Universal 版本通常运行在 XWayland 下，使用 class
 assign [class="wechat"] workspace number 4
 
@@ -65,3 +65,14 @@ for_window [app_id="slurp"] border none
 
 # 加对 JetBrains 系 IDE 弹窗的补丁
 for_window [instance="jetbrains-.*" title="^ "] floating enable
+
+# imv 加一个浮动规则
+# for_window [app_id="imv"] floating enable, move position center, resize set 1000 700
+# nsxiv 窗口规则 (使用 class 匹配 XWayland 应用)
+for_window [class="nsxiv"] {
+    floating enable
+    move position center
+    resize set 1200 800
+    # 允许它在所有工作区可见
+    sticky enable 
+}

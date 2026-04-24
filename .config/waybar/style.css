@@ -1,323 +1,244 @@
-/*Colorschemes, there are Gruvbox, Tokyo Night, and Everforest by default. The way it works is whichever colorscheme section is defined last will be used. Here everforest is last, but put any one you want to use as the last one.*/
+/* 配色方案 (Gruvbox Dark) */
+@define-color background #282828;      /* 背景：深灰 */
+@define-color background-light #3c3836;/* 悬停背景：浅灰 */
+@define-color foreground #ebdbb2;      /* 前景：米白 */
+@define-color black #32302f;           /* 纯黑 */
+@define-color red #cc241d;             /* 红色：警告/紧急 */
+@define-color green #98971a;           /* 绿色：正常/CPU */
+@define-color yellow #d79921;          /* 黄色：温度 */
+@define-color blue #458588;            /* 蓝色：时间/网络 */
+@define-color magenta #b16286;         /* 洋红：内存/天气 */
+@define-color cyan #689d6a;            /* 青色：磁盘 */
+@define-color orange #d65d0e;          /* 橙色：音量 */
 
-
-
-/* Tokyo Night */
-@define-color background #1a1b26;
-@define-color background-light #24283b;
-@define-color foreground #c0caf5;
-@define-color black #15161e;
-@define-color red #f7768e;
-@define-color green #9ece6a;
-@define-color yellow #e0af68;
-@define-color blue #7aa2f7;
-@define-color magenta #bb9af7;
-@define-color cyan #7dcfff;
-@define-color white #a9b1d6;
-@define-color orange #ff9e64;
-
-
-/* Everforest Dark Colors */
-@define-color background #2b3339;
-@define-color background-light #323c41;
-@define-color foreground #d3c6aa;
-@define-color black #3c474d;
-@define-color red #e67e80;
-@define-color green #a7c080;
-@define-color yellow #dbbc7f;
-@define-color blue #7fbbb3;
-@define-color magenta #d699b6;
-@define-color cyan #83c092;
-@define-color white #d3c6aa;
-@define-color orange #e69875;
-
-/* Pastel TTY Colors */
-@define-color background #212121;
-@define-color background-light #3a3a3a;
-@define-color foreground #e0e0e0;
-@define-color black #5a5a5a;
-@define-color red #ff9a9e;
-@define-color green #b5e8a9;
-@define-color yellow #ffe6a7;
-@define-color blue #63a4ff;
-@define-color magenta #dda0dd;
-@define-color cyan #a3e8e8;
-@define-color white #ffffff;
-@define-color orange #ff8952;
-
-
-
-/* Gruvbox Dark Colors */
-@define-color background #282828;
-@define-color background-light #3c3836;
-@define-color foreground #ebdbb2;
-@define-color black #32302f;
-@define-color red #cc241d;
-@define-color green #98971a;
-@define-color yellow #d79921;
-@define-color blue #458588;
-@define-color magenta #b16286;
-@define-color cyan #689d6a;
-@define-color white #ebdbb2;
-@define-color orange #d65d0e;
-@define-color window-color #282828;
-
-
-
-/* Module-specific colors */
-@define-color workspaces-color @foreground;
-@define-color workspaces-focused-bg @green;
+/* 模块特定配色变量 */
 @define-color workspaces-focused-fg @cyan;
 @define-color workspaces-urgent-bg @red;
-@define-color workspaces-urgent-fg @black;
-
-/* Text and border colors for modules */
-@define-color mode-color @orange;
-@define-color mpd-color @magenta;
-@define-color weather-color @magenta;
-@define-color playerctl-color @magenta;
-@define-color clock-color @blue;
-@define-color cpu-color @green;
-@define-color memory-color @magenta;
-@define-color temperature-color @yellow;
-@define-color temperature-critical-color @red;
-@define-color battery-color @cyan;
-@define-color battery-charging-color @green;
-@define-color battery-warning-color @yellow;
-@define-color battery-critical-color @red;
-@define-color network-color @blue;
-@define-color network-disconnected-color @red;
-@define-color pulseaudio-color @orange;
-@define-color pulseaudio-muted-color @red;
-@define-color backlight-color @yellow;
-@define-color disk-color @cyan;
-@define-color uptime-color @green;
-@define-color updates-color @orange;
-@define-color quote-color @green;
-@define-color idle-inhibitor-color @foreground;
 @define-color idle-inhibitor-active-color @red;
 
+/* 全局基础样式 */
 * {
-    /* Base styling for all modules */
-    border: none;
-    border-radius: 0;
+    border: none;             /* 无边框 */
+    border-radius: 0;         /* 无圆角 */
+    /* 字体：优先图标字体，最后是代码字体 */
     font-family: "Symbols Nerd Font Mono", "Font Awesome 6 Free", "Iosevka Nerd Font";
-    font-size: 14px;
+    font-size: 14px;          /* 字号 */
     min-height: 0;
 }
 
+/* 整个 Waybar 条的背景 */
 window#waybar {
     background-color: @background;
     color: @foreground;
 }
 
-
-
-/* Common module styling with border-bottom */
-#mode, #mpd, #custom-weather, #custom-playerctl, #clock, #cpu,
-#memory, #temperature, #battery, #network, #pulseaudio,
-#backlight, #disk, #custom-uptime, #custom-updates, #custom-quote,
-#idle_inhibitor, #tray {
+/* 共有样式列表，确保包含新模块名 */
+#custom-weather, #clock, #custom-backlight, #cpu, #memory, .cpu, .gpu, 
+#network, #pulseaudio, #custom-mpris, #disk, #idle_inhibitor, #tray, #window {
     padding: 0 10px;
     margin: 0 2px;
+    background: @black;
+    /* 增加顶部透明边框，让文字上下间距绝对平衡 */
+    border-top: 2px solid transparent; 
     border-bottom: 2px solid transparent;
-    background-color: transparent;
 }
 
-/* Workspaces styling */
+/* 所有工作区按钮的共有基础样式 */
 #workspaces button {
-    padding: 0 10px;
-    background-color: transparent;
-    color: @workspaces-color;
-    margin: 0;
+    padding: 0 12px;
+    margin: 4px 2px;
+    color: @foreground;
+    background: transparent;
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(.55,-0.04,.3,1.44); /* 增加切换时的平滑动画 */
 }
 
+/* 1. 常驻但空置的工作区 (重点优化) */
+#workspaces button.persistent {
+    color: @background-light; /* 使用浅灰色，使其看起来像“虚位以待” */
+    font-size: 12px;          /* 稍微缩小一点图标 */
+}
+
+/* 2. 有窗口运行的工作区（非当前） */
+#workspaces button.visible {
+    color: @foreground;       /* 恢复正常米白色，代表里面有东西 */
+    font-size: 14px;
+}
+
+/* 3. 当前正在使用的工作区 */
+#workspaces button.focused {
+    color: @cyan;             /* 使用 Gruvbox 青色 */
+    background: @black;       /* 给个深色胶囊背景 */
+    box-shadow: inset 0 -2px @cyan; /* 底部青色横线 */
+    font-weight: bold;
+    font-size: 15px;          /* 稍微放大，视觉冲击力更强 */
+}
+
+/* 4. 有紧急提醒的工作区 (如聊天软件闪烁) */
+#workspaces button.urgent {
+    color: @black;
+    background: @red;
+    animation: blink-red 0.5s infinite alternate;
+}
+
+/* 鼠标滑过的效果 */
 #workspaces button:hover {
     background: @background-light;
-    box-shadow: inherit;
+    color: @orange;
 }
 
-#workspaces button.focused {
-    box-shadow: inset 0 -2px @workspaces-focused-fg;
-    color: @workspaces-focused-fg;
-    font-weight: 900;
+/* 针对 format 里的那个󱓞图标（如果它没有被 rewrite 捕获） */
+#window > widget > label {
+    margin-right: 5px;
 }
 
-#workspaces button.urgent {
-    background-color: @workspaces-urgent-bg;
-    color: @workspaces-urgent-fg;
+/* 模块详细样式 */
+#custom-mpris {
+    background-color: @black; /* 你的方块底色 */
+    color: @foreground;       /* 强制使用米白色文字 */
+    padding: 0 12px;
+    margin: 4px 5px;
+    border-radius: 8px;
+    /* 暂时去掉 border-bottom 以便观察 */
+    border: 1px solid @orange; /* 加上橙色边框，确认方块的边界 */
+}
+/* 正在播放时的样式：亮橙色，带一点发光感 */
+#custom-mpris.Playing {
+    color: @orange;
+    border-bottom: 2px solid @orange;
 }
 
-/* Module-specific styling */
-#mode {
-    color: @mode-color;
-    border-bottom-color: @mode-color;
+/* 暂停时的样式：米灰色，看起来比较安静 */
+#custom-mpris.Paused {
+    color: @background-light;
+    border-bottom: 2px solid transparent;
 }
 
-#mpd {
-    color: @mpd-color;
-    border-bottom-color: @mpd-color;
-}
-
-#mpd.disconnected,
-#mpd.stopped {
-    color: @foreground;
-    border-bottom-color: transparent;
-}
-
+/* 天气 */
 #custom-weather {
-    color: @weather-color;
-    border-bottom-color: @weather-color;
+    color: @magenta;
+    border-bottom-color: @magenta;
 }
 
-#custom-playerctl {
-    color: @playerctl-color;
-    border-bottom-color: @playerctl-color;
+/* 时钟 */
+#clock {
+    color: @blue;
+    border-bottom-color: @blue;
 }
 
-#custom-playerctl.Playing {
-    color: @cyan;
-    border-bottom-color: @cyan;
-}
-
-#custom-playerctl.Paused {
+/* 亮度模块颜色 */
+#custom-backlight {
     color: @orange;
     border-bottom-color: @orange;
 }
 
-#clock {
-    color: @clock-color;
-    border-bottom-color: @clock-color;
-}
-
+/* CPU */
 #cpu {
-    color: @cpu-color;
-    border-bottom-color: @cpu-color;
+    color: @green;
+    border-bottom-color: @green;
 }
 
+/* 内存 */
 #memory {
-    color: @memory-color;
-    border-bottom-color: @memory-color;
+    color: @magenta;
+    border-bottom-color: @magenta;
 }
 
-#temperature {
-    color: @temperature-color;
-    border-bottom-color: @temperature-color;
+/* CPU 温度样式 (利用 class 选择器) */
+#temperature.cpu {
+    color: @yellow;
+    border-bottom-color: @yellow;
 }
 
-#temperature.critical {
-    color: @temperature-critical-color;
-    border-bottom-color: @temperature-critical-color;
+/* GPU 温度样式 (利用 class 选择器) */
+#temperature.gpu {
+    color: @cyan;
+    border-bottom-color: @cyan;
 }
 
-#custom-recorder {
-    color: #ffffff;
-    background-color: #f38ba8; /* 红色 */
-    padding: 0 10px;
-    margin: 5px;
-    border-radius: 4px;
-    animation-name: blink;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+/* 临界报警状态 */
+#temperature.cpu.critical, #temperature.gpu.critical {
+    color: @red;
+    border-bottom-color: @red;
 }
 
-@keyframes blink {
-    to {
-        background-color: transparent;
-        color: #f38ba8;
-    }
-}
-
-#battery {
-    color: @battery-color;
-    border-bottom-color: @battery-color;
-}
-
-#battery.charging, #battery.plugged {
-    color: @battery-charging-color;
-    border-bottom-color: @battery-charging-color;
-}
-
-#battery.warning:not(.charging) {
-    color: @battery-warning-color;
-    border-bottom-color: @battery-warning-color;
-}
-
-#battery.critical:not(.charging) {
-    color: @battery-critical-color;
-    border-bottom-color: @battery-critical-color;
-}
-
+/* 网络 */
 #network {
-    color: @network-color;
-    border-bottom-color: @network-color;
+    color: @blue;
+    border-bottom: 2px solid @blue;
+    /* 核心修改：增加最小宽度和居中对齐，防止布局抖动 */
+    min-width: 130px;
+    font-family: "Iosevka Nerd Font", "Symbols Nerd Font Mono"; /* 强制等宽字体 */
 }
 
+/* 断网状态 */
 #network.disconnected {
-    color: @network-disconnected-color;
-    border-bottom-color: @network-disconnected-color;
+    color: @red;
+    border-bottom-color: @red;
+    min-width: 0; /* 断网时变短 */
 }
 
+/* 音量 */
 #pulseaudio {
-    color: @pulseaudio-color;
-    border-bottom-color: @pulseaudio-color;
+    color: @orange;
+    border-bottom-color: @orange;
 }
 
+/* 静音状态 */
 #pulseaudio.muted {
-    color: @pulseaudio-muted-color;
-    border-bottom-color: @pulseaudio-muted-color;
+    color: @red;
+    border-bottom-color: @red;
 }
 
-#backlight {
-    color: @backlight-color;
-    border-bottom-color: @backlight-color;
-}
-
+/* 磁盘占用 */
 #disk {
-    color: @disk-color;
-    border-bottom-color: @disk-color;
+    color: @cyan;
+    border-bottom-color: @cyan;
 }
 
-#custom-uptime {
-    color: @uptime-color;
-    border-bottom-color: @uptime-color;
-}
-
-#custom-updates {
-    color: @updates-color;
-    border-bottom-color: @updates-color;
-}
-
-#custom-quote {
-    color: @quote-color;
-    border-bottom-color: @quote-color;
-}
-
+/* 防睡眠开关 */
 #idle_inhibitor {
-    color: @idle-inhibitor-color;
-    border-bottom-color: transparent;
+    color: @foreground;
 }
 
+/* 防睡眠开启状态 */
 #idle_inhibitor.activated {
     color: @idle-inhibitor-active-color;
     border-bottom-color: @idle-inhibitor-active-color;
 }
 
+/* 系统托盘 */
 #tray {
-    background-color: transparent;
-    padding: 0 10px;
-    margin: 0 2px;
     border-bottom: 2px solid @blue;
 }
 
-#tray > .passive {
-    -gtk-icon-effect: dim;
+/* 展示窗口 */
+#window {
+    font-size: 12px;           /* 稍微调小一点，显得精致 */
+    color: @foreground;
+    background: @black;        /* 给窗口标题一个深色背景 */
+    padding: 0 12px;
+    margin: 4px 10px;          /* 增加边距，让它像个独立的胶囊 */
+    border-radius: 4px;        /* 稍微给点圆角 */
 }
 
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    color: @red;
-    border-bottom-color: @red;
+/* 录制模块动画 (中间模块)*/
+#custom-recorder {
+    color: #ffffff;
+    background-color: #f38ba8; /* 红色背景 */
+    padding: 0 10px;
+    margin: 5px;
+    border-radius: 4px;       /* 录制时显示圆角背景 */
+    animation-name: blink;     /* 触发闪烁动画 */
+    animation-duration: 1s;    /* 每秒一次 */
+    animation-iteration-count: infinite; /* 无限循环 */
+    animation-direction: alternate;      /* 来回闪烁 */
+}
+
+/* 闪烁动画定义：从红底白字变透明底红字 */
+@keyframes blink {
+    to {
+        background-color: transparent;
+        color: #f38ba8;
+    }
 }

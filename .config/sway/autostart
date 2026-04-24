@@ -31,6 +31,10 @@ exec cliphist wipe-older 200
 # kaiji 启动 Clash Verge
 # exec sleep 3 &&  clash-verge
 exec sleep 3 &&  $proxy
+# 启动 autotiling 后台进程
+exec_always autotiling -w 1 2 3 4 5
+# 歌曲脚本监听
+exec ~/.config/waybar/scripts/mpris_notify.sh
 
 
 
