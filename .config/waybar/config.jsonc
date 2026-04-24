@@ -4,103 +4,87 @@
     "height": 30,
     "spacing": 1,
     "margin": 0,
-    "modules-left": ["sway/workspaces", "sway/mode", "custom/weather", "sway/window"],
-        "modules-center": ["custom/recorder"],                                                                           //battery   //disk     // uptime      //updates        // systray
-    "modules-right": ["clock","pulseaudio", "backlight", "network", "cpu", "memory", "temperature", "battery", "disk", "custom/uptime", "custom/updates", "tray"],
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-center": ["custom/recorder"],                                                                           //battery   //disk     // uptime      //updates        // systray
+    "modules-right": ["custom/mpris","custom/weather", "clock", "custom/backlight", "pulseaudio", "network", "cpu", "memory", "temperature#cpu", "temperature#gpu", "disk", "idle_inhibitor", "tray"],
 
 
     "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{name}",
-        "format-icons": {
-            "1": "󰖟",
-            "2": "",
-            "3": "",
-            "4": "󰭹",
-            "5": "󰕧",
-            "6": "",
-            "7": "",
-            "8": "󰣇",
-            "9": "",
-            "10": ""
-        },
-        "persistent_workspaces": {
-            "1": [],
-            "2": [],
-            "3": [],
-            "4": [],
-            "5": []
-        }
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}",
+    // "format": "{icon}",
+    "persistent-workspaces": {
+        "1": [], 
+        "2": [], 
+        "3": [], 
+        "4": [], 
+        "5": []
     },
+    "format-icons": {
+        "1": "󰖟",
+        "2": "",
+        "3": "",
+        "4": "󰭹",
+        "5": "󰕧",
+        "6": "",
+        "7": "",
+        "8": "󰣇",
+        "9": "",
+        "10": "",
+        "default": "󰣇"
+    }
+},
 
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
 
-    "custom/playerctl": {
-        "format": " 󰐊 {}",
-        "return-type": "json",
-        "max-length": 40,
-        "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{artist}} - {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
-        "on-click": "playerctl play-pause",
-        "on-click-right": "playerctl next",
+
+    "sway/window": {
+    // 将 "󱓞{title}" 改为 "󱓞  {title}"，增加默认间距
+    "format": " <span font_weight='bold' color='#d65d0e'>󱓞</span>  {title}",
+    "max-length": 30, // 缩短一点，避免把右边挤开
+    "separate-outputs": true,
+    "rewrite": {
+        "(.*) — Mozilla Firefox": "󰈹  Firefox", // 图标后加双空格，并精简文字
+        "(.*) - Google Chrome": "󰊯  Chrome",
+        "(.*) - NVIM": "  $1",
+        "(.*) - nvim": "  $1",
+        "wkai@arch-tmp:(.*)": "  $1", 
+        "kitty": "  Terminal",
+        "(.*)": "󰆍  $1" 
+    }
+},
+
+    "custom/recorder": {
+    "format": "󰑋 RECORDING", // 使用了 Nerd Font 的录制图标
+    "exec": "echo '{\"class\": \"recording\"}'",
+    "exec-if": "pgrep -x wf-recorder",
+    "interval": 1, // 每秒检查一次进程是否存在
+    "tooltip": false
     },
+
+    "custom/mpris": {
+    "format": "󰎆 {}",
+    "return-type": "json",
+    "max-length": 40,
+    "interval": 1, // 每秒检查一次，也可以用 playerctl -F 模式，但 interval 对 Electron 应用最稳
+    "exec": "~/.config/waybar/scripts/mpris_status.py",
+    "on-click": "playerctl -p yesplaymusic play-pause",
+    "on-click-right": "~/.config/waybar/scripts/mpris_menu.sh",
+    "on-scroll-up": "playerctl -p yesplaymusic next",
+    "on-scroll-down": "playerctl -p yesplaymusic previous",
+    "format-icons": {
+        "Playing": "<span color='#d65d0e'>󰎆</span>",
+        "Paused": "<span color='#928374'>󰏤</span>"
+    }
+},
 
     "custom/weather": {
         "exec": "curl 'https://wttr.in/?format=1'",
         "interval": 3600,
         "format": "{}",
-        "tooltip": true
-    },
-
-    // 添加 sway/window 模块配置
-    "sway/window": {
-        "format": "󱓞{title}",
-        "max-length": 40,
-        "separate-outputs": true,
-        "rewrite": {
-            // 浏览器
-            "(.*) — Mozilla Firefox": "󰈹 $1",
-            "(.*) - Google Chrome": "󰊯 $1",
-            // 编辑器与终端
-            "(.*) - NVIM": " $1",
-            "(.*) - nvim": " $1",
-            "wkai@arch-tmp:(.*)": " $1", 
-            // 如果只有终端路径，显示简洁路径
-            "kitty": " Terminal",
-            "(.+)": "󰆍 $1" 
-        }
-    },
-
-    "custom/quote": {
-        "format": "󰚛 {}",
-        "interval": 3600,
-        "exec": "fortune -s",
-        "on-click": "fortune | yad --text-info --width=400 --height=200 --title='Fortune'",
-        "tooltip": true
-    },
-
-    "custom/updates": {
-        "format": "󰚰 {}",
-        "exec": "checkupdates | wc -l",
-        "interval": 3600,
-        "on-click": "kitty -e sudo pacman -Syu",
-        "signal": 8
-    },
-
-    "custom/uptime": {
-        "format": "󰔟 {}",
-        "exec": "uptime -p | sed 's/up //; s/ days/d/; s/ hours/h/; s/ minutes/m/'",
-        "interval": 60
-    },
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "󰈈",
-            "deactivated": "󰈉"
-        },
         "tooltip": true
     },
 
@@ -131,55 +115,16 @@
         }
     },
 
-    "cpu": {
-        "format": "󰘚 {usage}%",
-        "tooltip": true,
-        "interval": 1,
-        "on-click": "kitty -e htop"
-    },
-
-    "memory": {
-        "format": "󰍛 {}%",
-        "interval": 1,
-        "on-click": "kitty -e htop"
-    },
-
-    "custom/recorder": {
-    "format": "󰑋 RECORDING", // 使用了 Nerd Font 的录制图标
-    "exec": "echo '{\"class\": \"recording\"}'",
-    "exec-if": "pgrep -x wf-recorder",
-    "interval": 1, // 每秒检查一次进程是否存在
-    "tooltip": false
-},
-
-    "temperature": {
-        "critical-threshold": 80,
-        "format": "{icon} {temperatureC}°C",
-        "format-icons": ["󱃃", "󰔏", "󱃂"],
-        "on-click": "kitty -e s-tui"
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰚥 {capacity}%",
-        "format-alt": "{icon} {time}",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-    },
-
-    "network": {
-        "format-wifi": "󰖩 {essid} ({signalStrength}%)",
-        "format-ethernet": "󰈀 {ifname}",
-        "format-linked": "󰈀 {ifname} (No IP)",
-        "format-disconnected": "󰖪 Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "tooltip-format": "{ifname}: {ipaddr}",
-        "on-click": "kitty -e nmtui"
+    "custom/backlight": {
+        "format": "{icon} {percentage}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "return-type": "json",
+        // 这里直接解析 ddcutil 的输出，--terse 模式最适合脚本抓取
+        "exec": "ddcutil getvcp 10 --terse | awk '{print \"{\\\"percentage\\\": \" $4 \"}\"}'",
+        "interval": 15, // DDC/CI 通信较慢，不建议设为 1，15s-30s 比较平衡
+        "on-scroll-up": "ddcutil setvcp 10 + 10",
+        "on-scroll-down": "ddcutil setvcp 10 - 10",
+        "tooltip": false
     },
 
     "pulseaudio": {
@@ -202,11 +147,46 @@
         "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
     },
 
-    "backlight": {
-        "format": "{icon} {percent}%",
-        "format-icons": ["󰃞", "󰃟", "󰃠"],
-        "on-scroll-up": "brightnessctl set +5%",
-        "on-scroll-down": "brightnessctl set 5%-"
+    "network": {
+        "interval": 2,
+        // 有线网格式：显示图标 + 下载(绿) + 上传(红)
+        "format-ethernet": "󰈀 <span color='#98971a'>{bandwidthDownBytes}</span> 󰇚 <span color='#cc241d'>{bandwidthUpBytes}</span> 󰕒",
+        // WiFi格式：信号图标 + SSID + 网速
+        "format-wifi": "󰖩 {essid} <span color='#98971a'>{bandwidthDownBytes}</span> 󰇚 <span color='#cc241d'>{bandwidthUpBytes}</span> 󰕒",
+        "format-linked": "󰈀 {ifname} (No IP)",
+        "format-disconnected": "󰖪 Disconnected",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr} via {gwaddr}",
+        "on-click": "kitty -e nmtui"
+    },
+
+    "cpu": {
+        "format": "󰘚 {usage}%",
+        "tooltip": true,
+        "interval": 1,
+        "on-click": "kitty -e htop"
+    },
+
+    "memory": {
+        "format": "󰍛 {}%",
+        "interval": 1,
+        "on-click": "kitty -e htop"
+    },
+
+    "temperature#cpu": {
+        "hwmon-path": "/sys/class/hwmon/hwmon3/temp1_input", // 对应 k10temp
+        "critical-threshold": 80,
+        "format": "CPU {icon} {temperatureC}°C",
+        "format-icons": ["󱃃", "󰔏", "󱃂"],
+        "on-click": "kitty -e s-tui"
+    },
+
+    "temperature#gpu": {
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input", // 对应第一个 amdgpu
+        "tooltip-format": "AMD Discrete GPU Path: {hwmon_path}", // 鼠标悬停时显示具体路径
+        "critical-threshold": 80,
+        "format": "GPU {icon} {temperatureC}°C",
+        "format-icons": ["󱃃", "󰔏", "󱃂"],
+        "on-click": "kitty -e s-tui"
     },
 
     "disk": {
@@ -216,8 +196,20 @@
         "on-click": "kitty -e gdu /"
     },
 
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰈈",
+            "deactivated": "󰈉"
+        },
+        "tooltip": true
+    },
+
     "tray": {
         "icon-size": 18,
         "spacing": 5
     }
+
+
+
 }

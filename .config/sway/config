@@ -11,7 +11,7 @@ include ~/.config/sway/colors
 ### 显示器与外观配置
 # 硬件型号: HKC IG27Q
 # 使用 2560x1440 分辨率，刷新率设为 144Hz
-output DP-1 mode 2560x1440@144Hz pos 0 0 adaptive_sync on max_render_time 5
+output DP-1 mode 2560x1440@144Hz pos 0 0 adaptive_sync on max_render_time 5 scale 1
 output * bg $wallpaper fill
 # 强制开启 XWayland，提高旧应用的兼容性
 xwayland enable
@@ -20,9 +20,9 @@ default_border none
 default_floating_border normal
 ### 间隙配置 (Gaps)
 # 窗口之间的间隙
-gaps inner 8
+gaps inner 6
 # 窗口与屏幕边缘的间隙
-gaps outer 4
+gaps outer 0
 # 如果只有一个窗口时，是否保留间隙 (smart_gaps)
 # on: 只有一个窗口时也显示间隙；off: 只有一个窗口时充满全屏
 smart_gaps on
@@ -39,6 +39,14 @@ input "type:keyboard" {
     # caps:swapescape -> CapsLock 变 Esc
     # altwin:swap_alt_win -> 交换 Alt 和 Win 键
     # xkb_options caps:swapescape,altwin:swap_alt_win
+}
+
+# 鼠标主题
+seat seat0 xcursor_theme $cursor_theme $cursor_size
+# 鼠标交互配置
+input "type:pointer" {
+    accel_profile "flat"  # 禁用鼠标加速
+    pointer_accel 0       # 设置灵敏度
 }
 
 include ~/.config/sway/rules
