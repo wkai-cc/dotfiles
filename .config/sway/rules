@@ -3,6 +3,9 @@
 # @since 2023,2024,2025,2026
 
 
+# 禁止所有窗口通过激活请求来抢夺焦点
+focus_on_window_activation urgent
+
 # ~/.config/sway/rules 
 # 全局浮动与弹窗规则 (确保交互逻辑符合直觉)
 # 自动让所有的弹窗、对话框和菜单居中浮动，防止它们被平铺充满屏幕
@@ -49,6 +52,7 @@ no_focus [class="yesplaymusic"]
 assign [class="QQ"] workspace number 4
 # 将微信分配到第 4 个工作区,微信 Universal 版本通常运行在 XWayland 下，使用 class
 assign [class="wechat"] workspace number 4
+
 
 
 # 优化 Firefox 画中画窗口（Picture-in-Picture）
