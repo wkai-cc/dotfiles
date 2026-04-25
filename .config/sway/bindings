@@ -26,7 +26,8 @@ bindsym $mod+Shift+w exec ~/.local/bin/wallpaper-picker.sh
 # 剪切板=bindings(mod + v)
 bindsym $mod+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
 # 表情包=rofi-emoji(mod + )
-bindsym $mod+period exec rofi -show emoji
+# bindsym $mod+period exec rofi -show emoji
+bindsym $mod+period exec rofi -show emoji -theme-str 'listview {columns: 8; lines: 6;}'
 # 启动计算器(mod + c)
 bindsym $mod+c exec $calc
 # 打开 Google Chrome(mod + g)

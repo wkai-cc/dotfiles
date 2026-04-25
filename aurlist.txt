@@ -1,0 +1,17 @@
+antigravity
+bibata-cursor-theme-bin
+clash-verge-rev-bin
+freetype2-wps
+gemini-cli-git
+google-chrome
+greetd-dms-greeter-git
+linuxqq-nt-bwrap
+ttf-wps-fonts
+visual-studio-code-bin
+waybar-mpris-git
+wechat-universal-bwrap
+wps-office-cn
+wps-office-mui-zh-cn
+wshowkeys-git
+yesplaymusic
+zen-browser-bin
