@@ -22,3 +22,24 @@ on   = [ "~" ]
 run  = "help"
 desc = "打开帮助菜单"
 
+# 快速跳转快捷键 (Go to 系列)
+
+[[manager.prepend_keymap]]
+on   = [ "g", "d" ]
+run  = "cd /mnt/data/03_Backup/ArchLinux/dotfiles"
+desc = "跳转到 Dotfiles"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "w" ]
+run  = "cd ~/Pictures/wallpaper"
+desc = "跳转到壁纸"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "o" ]
+run  = "cd /mnt/data/OneDrive"
+desc = "跳转到 OneDrive"
+
+[[manager.prepend_keymap]]
+on   = [ "g", "c" ]
+run  = "cd ~/.config"
+desc = "跳转到配置目录"

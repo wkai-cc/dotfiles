@@ -81,3 +81,5 @@ alias cls='clear'
 alias ll='lsd -la'
 # 高亮显示过滤结果
 alias grep='grep --color=auto'
+alias y='yazi'
+alias bak-arch='~/.local/bin/backup-arch-etc-v.sh'
