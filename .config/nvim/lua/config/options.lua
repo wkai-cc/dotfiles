@@ -9,3 +9,4 @@ vim.opt.shiftwidth = 4 -- 设定缩进宽度为 4
 vim.opt.tabstop = 4 -- 设定 Tab 显示宽度为 4
 vim.opt.softtabstop = 4 -- 设定按退格键时一次删除 4 个空格
 vim.opt.expandtab = true -- 将 Tab 键自动转换为空格
+vim.g.lazyvim_colorscheme = "industry" -- 主题
