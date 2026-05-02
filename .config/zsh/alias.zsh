@@ -10,3 +10,5 @@ alias bak-arch='~/.local/bin/backup-arch-etc-v.sh'
 
 alias ,dot='cd /mnt/data/03_Backup/ArchLinux/dotfiles'
 alias ,dots='stow -v -R -t ~ .'
+
+alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'

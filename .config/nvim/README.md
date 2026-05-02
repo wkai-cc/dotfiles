@@ -1,2 +1,0 @@
----
-**Config by wkai-cc**

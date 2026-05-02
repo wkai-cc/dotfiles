@@ -1,73 +1,46 @@
-[manager]
-# 界面比例：第一栏(父目录)占1，第二栏(当前目录)占3，第三栏(预览)占4
-ratio          = [ 1, 3, 4 ]
-# 排序方式：自然排序
-sort_by        = "natural"
-# 优先显示目录：让文件夹排在文件前面
+[mgr]
+ratio = [1, 4, 3]
+sort_by = "extension"
+sort_sensitive = false
+sort_reverse = false
 sort_dir_first = true
-# 显示隐藏文件：默认开启，方便改 dotfiles
-show_hidden    = true
-# 相对行号
-show_line_numbers = "relative"
-# 行模式：右侧显示文件权限
-linemode       = "permissions"
-
-[opener]
-# 定义如何打开程序
-# edit: 在终端内打开 nvim，block=true 确保 nvim 退出前 yazi 会被挂起
-edit = [ { run = 'nvim "$@"', block = true, for = "unix" } ]
-# play: 后台独立运行 mpv，关闭 yazi 不会影响视频播放
-play = [ { run = 'mpv "$@"', orphan = true, for = "unix" } ]
-# view: 图片查看器
-view = [ { run = 'gwenview "$@"', orphan = true, for = "unix" } ]
-# reveal: 在文件管理器中显示（调用系统的 xdg-open）
-reveal = [ { run = 'xdg-open "$(dirname "$@")"', desc = "Reveal", for = "unix" } ]
-# pdf: 轻量级 PDF 查看器
-pdf = [ { run = 'zathura "$@"', orphan = true, for = "unix" } ]
-# office: 备选的 LibreOffice 方案
-office = [ { run = 'libreoffice "$@"', orphan = true, for = "unix" } ]
-# wps-et: WPS 表格 (Excel)
-wps-et = [ { run = 'et "$@"', orphan = true, for = "unix" } ]
-# wps-wps: WPS 文字 (Word)
-wps-wps = [ { run = 'wps "$@"', orphan = true, for = "unix" } ]
-# wps-wpp: WPS 演示 (PPT)
-wps-wpp = [ { run = 'wpp "$@"', orphan = true, for = "unix" } ]
-# extract: 使用 atool 进行解压，block=true 可以在终端看到解压进度
-extract = [ { run = 'atool -x "$@"', desc = "Extract here", block = true, for = "unix" } ]
-# browser: 浏览器打开
-browser = [ { run = 'xdg-open "$@"', orphan = true, for = "unix" } ]
-
-[open]
-# 关联文件类型与打开程序
-rules = [
-    # 视频与图片
-    { mime = "video/*", use = [ "play", "edit" ] },
-    { mime = "image/*", use = [ "view", "edit" ] },
-
-    # PDF 与 电子书
-    { mime = "application/pdf", use = [ "pdf" ] },
-    { mime = "application/epub+zip", use = [ "pdf" ] },
-
-    # Office 文档 (优化：将 WPS 放在前面作为首选，LibreOffice 作为备选)
-    { mime = "application/{msword,vnd.openxmlformats-officedocument.wordprocessingml.document}", use = [ "wps-wps", "office" ] },
-    { mime = "application/{vnd.ms-excel,vnd.openxmlformats-officedocument.spreadsheetml.sheet}", use = [ "wps-et", "office" ] },
-    { mime = "application/{vnd.ms-powerpoint,vnd.openxmlformats-officedocument.presentationml.presentation}", use = [ "wps-wpp", "office" ] },
-
-    # 网页
-    { mime = "text/html", use = [ "browser", "edit" ] },
-
-    # 压缩包
-    { mime = "application/{zip,x-tar,x-bzip2,x-gzip,x-7z-compressed,x-rar}", use = [ "extract" ] },
-
-    # 脚本与代码 (合并常见开发语言)
-    { mime = "{text,application}/{plain,json,x-shellscript,x-perl,x-python,x-lua,xml,javascript,x-wine-extension-ini}", use = [ "edit" ] },
-    { name = "*.{md,txt,conf,toml,yaml,yml,lua,sh,py,zsh,js,ts,c,cpp,rs,go,zig,kdl}", use = [ "edit" ] },
-]
+linemode = "btime"
+show_hidden = true
+show_symlink = true
 
 [preview]
-# Ghostty 优化
-# 限制预览图最大尺寸，平衡性能与画质
-max_width  = 1500
-max_height = 1500
-image_filter = "lanczos3" # 提高缩略图质量
-image_quality = 80        # 平衡速度与清晰度
+wrap = "yes"
+image_filter = "lanczos3"
+
+
+[plugin]
+prepend_preloaders = [
+  { mime = "{audio,video,image}/*", run = "mediainfo" },
+  { mime = "application/subrip", run = "mediainfo" },
+  { mime = "application/postscript", run = "mediainfo" },
+  { url = "/run/user/1000/gvfs/**/*", run = "noop" },
+  { url = "/run/media/USER_NAME/**/*", run = "noop" },
+  { url = "*.csv", run = "duckdb", multi = false },
+  { url = "*.tsv", run = "duckdb", multi = false },
+  { url = "*.json", run = "duckdb", multi = false },
+  { url = "*.parquet", run = "duckdb", multi = false },
+  { url = "*.xlsx", run = "duckdb", multi = false },
+]
+prepend_previewers = [
+  { mime = "{audio,video,image}/*", run = "mediainfo" },
+  { mime = "application/subrip", run = "mediainfo" },
+  { mime = "application/postscript", run = "mediainfo" },
+  { url = "*/", run = "folder" },
+  { url = "/run/user/1000/gvfs/**/*", run = "noop" },
+  { url = "/run/media/USER_NAME/**/*", run = "noop" },
+  { url = "*.csv", run = "duckdb" },
+  { url = "*.tsv", run = "duckdb" },
+  { url = "*.json", run = "duckdb" },
+  { url = "*.parquet", run = "duckdb" },
+  { url = "*.xlsx", run = "duckdb" },
+  { url = "*.db", run = "duckdb" },
+  { url = "*.duckdb", run = "duckdb" },
+  { url = "*.docx", run = "docx" },
+]
+[tasks]
+image_alloc = 1073741824 # = 1024*1024*1024 = 1024MB
