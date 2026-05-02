@@ -1,6 +1,8 @@
-.netrwhist
-undo/
-tags
-shada/
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
 *.log
-lazy-lock.json
+data

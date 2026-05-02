@@ -25,7 +25,5 @@ export QT_QPA_PLATFORM="wayland;xcb"
 # 让 Electron 应用（如 VSCode, Discord）自动开启原生 Wayland 支持
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
-# 保持家目录整洁的 XDG 规范强制化
-export CARGO_HOME="$HOME/.local/share/cargo"  # Rust 路径
-export GOPATH="$HOME/.local/share/go"         # Go 路径
-export NODE_REPL_HISTORY="$HOME/.cache/node_history"
+# 让 makepkg 和其他构建工具使用所有 CPU 核心进行并行编译
+export MAKEFLAGS="-j$(nproc)"
