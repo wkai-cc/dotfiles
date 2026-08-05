@@ -41,6 +41,7 @@ style = "bold blue"
 truncation_length = 3
 truncation_symbol = ".../"
 format = "[$path]($style) "
+read_only = " 󰌾"
 
 [git_branch]
 symbol = " "
@@ -94,5 +95,7 @@ style = "bold yellow"
 format = "took [$duration]($style) "
 
 [character]
-success_symbol = "[❯](bold green)" # 执行成功为绿色的 ❯
-error_symbol = "[❯](bold red)"     # 执行失败为红色的 ❯
+# success_symbol = "[❯](bold green)" # 执行成功为绿色的 ❯
+# error_symbol = "[❯](bold red)"     # 执行失败为红色的 ❯
+success_symbol = "[󰄛](bold green) [❯](bold green)" 
+error_symbol = "[󰄛](bold red) [❯](bold red)"

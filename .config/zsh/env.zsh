@@ -12,12 +12,7 @@ export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export SDL_IM_MODULE=fcitx
 
-# 硬件与 Wayland 桌面环境特化配置
-# 强制使用独立显卡运行应用
-export DRI_PRIME=1
-# 定义桌面环境，帮助应用识别并调用正确的 Portal 接口
-export XDG_CURRENT_DESKTOP=sway
-export XDG_SESSION_TYPE=wayland
+# Wayland 桌面环境特化配置
 # 强制 Firefox 浏览器开启原生 Wayland 支持，解决模糊和性能问题
 export MOZ_ENABLE_WAYLAND=1
 # Qt 应用优先尝试 Wayland 协议，失败则自动回退到 X11 (xcb)

@@ -1,25 +1,24 @@
-# 忽略所有日志文件
+# Logs and temporary files
 *.log
+*.bak
+*.back
+*.back.*
 
-# 忽略脚本生成的临时目录
+# Script-generated temporary directories
 .local/bin/test/
 
-# 忽略敏感的密钥文件
+# Sensitive key directories
 .ssh/
 .gnupg/
 
-# 忽略某些软件的缓存
+# Python-generated files and virtual environments
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+
+# Application caches
 .cache/
-Code/CachedData/
-Code/Cache/
-
-# 忽略 OneDrive 的一些同步临时文件
-.config/onedrive/.DS_Store
-
-# venv
-.venv/
-
-# 深入屏蔽软件缓存与日志
+**/cache/
 **/Cache/
 **/GPUCache/
 **/Code Cache/
@@ -28,6 +27,76 @@ Code/Cache/
 **/IndexedDB/
 **/Session Storage/
 **/Local Storage/
-*.bak
+Code/CachedData/
+Code/Cache/
+
+# Database runtime files
 *.sqlite3-shm
 *.sqlite3-wal
+
+# mpv runtime state
+.config/mpv/cache/
+.config/mpv/files/historybookmarks/
+.config/mpv/files/command_history.txt
+.config/mpv/files/mpvHistory.log
+.config/mpv/files/recent.json
+.config/mpv/files/watch_history.jsonl
+.config/mpv/files/persistent_config.json
+
+# OneDrive sensitive and runtime files
+.config/onedrive/.DS_Store
+.config/onedrive/.config.backup
+.config/onedrive/.config.hash
+.config/onedrive/items.sqlite3
+.config/onedrive/refresh_token
+
+# Yazi runtime and private state
+.config/yazi/gvfs.private
+.config/yazi/gvfs_automounts.private
+.config/yazi/plugins/whoosh.yazi/bookmarks
+
+# Yazi third-party packages managed by package.toml
+.config/yazi/flavors/catppuccin-mocha.yazi/
+.config/yazi/flavors/dracula.yazi/
+.config/yazi/plugins/augment-command.yazi/
+.config/yazi/plugins/bypass.yazi/
+.config/yazi/plugins/duckdb.yazi/
+.config/yazi/plugins/full-border.yazi/
+.config/yazi/plugins/gvfs.yazi/
+.config/yazi/plugins/mediainfo.yazi/
+.config/yazi/plugins/mount.yazi/
+.config/yazi/plugins/open-with-cmd.yazi/
+.config/yazi/plugins/ouch.yazi/
+.config/yazi/plugins/recycle-bin.yazi/
+.config/yazi/plugins/simple-status.yazi/
+.config/yazi/plugins/smart-enter.yazi/
+.config/yazi/plugins/starship.yazi/
+
+# Fcitx5 generated cache
+.config/fcitx5/conf/cached_layouts
+.config/fcitx5/
+
+# Obsidian / Electron runtime state
+.config/obsidian/Cookies*
+.config/obsidian/Crashpad/
+.config/obsidian/DIPS
+.config/obsidian/DawnGraphiteCache/
+.config/obsidian/DawnWebGPUCache/
+.config/obsidian/Dictionaries/
+.config/obsidian/Network Persistent State
+.config/obsidian/Preferences
+.config/obsidian/Shared Dictionary/
+.config/obsidian/TransportSecurity
+.config/obsidian/Trust Tokens*
+.config/obsidian/WebStorage/
+.config/obsidian/id
+.config/obsidian/obsidian.json
+.config/obsidian/[0-9a-f]*.json
+
+# OBS Studio sensitive and runtime state
+.config/obs-studio/plugin_config/obs-websocket/config.json
+.config/obs-studio/plugin_config/rtmp-services/
+.config/obs-studio/plugin_manager/modules.json
+.config/obs-studio/logs/
+.config/obs-studio/crashes/
+.config/obs-studio/profiler_data/

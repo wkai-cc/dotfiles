@@ -1,0 +1,13 @@
+.git
+.gitignore
+README.md
+LICENSE
+.stow-local-ignore
+^/tools(?:/|$)
+^/pkglist\.txt$
+^/aurlist\.txt$
+^/\.agents(?:/|$)
+^/\.codex(?:/|$)
+^/\.config/fcitx5(?:/|$)
+^/\.config/onedrive(?:/|$)
+^/\.config/obs-studio(?:/|$)
