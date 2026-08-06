@@ -100,3 +100,6 @@ Code/Cache/
 .config/obs-studio/logs/
 .config/obs-studio/crashes/
 .config/obs-studio/profiler_data/
+
+# Desktop application associations (machine specific)
+.config/mimeapps.list
