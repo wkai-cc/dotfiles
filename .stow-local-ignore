@@ -3,7 +3,6 @@
 README.md
 LICENSE
 .stow-local-ignore
-^/tools(?:/|$)
 ^/pkglist\.txt$
 ^/aurlist\.txt$
 ^/\.agents(?:/|$)
@@ -11,3 +10,4 @@ LICENSE
 ^/\.config/fcitx5(?:/|$)
 ^/\.config/onedrive(?:/|$)
 ^/\.config/obs-studio(?:/|$)
+^/\.config/mimeapps\.list$
