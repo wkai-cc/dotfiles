@@ -28,7 +28,6 @@
 - 编辑器：Neovim
 - 终端：Kitty、Ghostty
 - 桌面环境：Sway、Waybar、Rofi、Mako
-- 文件管理器：Yazi
 - 媒体播放器：mpv
 - 用户脚本：`.local/bin`
 

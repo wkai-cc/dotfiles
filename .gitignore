@@ -50,28 +50,6 @@ Code/Cache/
 .config/onedrive/items.sqlite3
 .config/onedrive/refresh_token
 
-# Yazi runtime and private state
-.config/yazi/gvfs.private
-.config/yazi/gvfs_automounts.private
-.config/yazi/plugins/whoosh.yazi/bookmarks
-
-# Yazi third-party packages managed by package.toml
-.config/yazi/flavors/catppuccin-mocha.yazi/
-.config/yazi/flavors/dracula.yazi/
-.config/yazi/plugins/augment-command.yazi/
-.config/yazi/plugins/bypass.yazi/
-.config/yazi/plugins/duckdb.yazi/
-.config/yazi/plugins/full-border.yazi/
-.config/yazi/plugins/gvfs.yazi/
-.config/yazi/plugins/mediainfo.yazi/
-.config/yazi/plugins/mount.yazi/
-.config/yazi/plugins/open-with-cmd.yazi/
-.config/yazi/plugins/ouch.yazi/
-.config/yazi/plugins/recycle-bin.yazi/
-.config/yazi/plugins/simple-status.yazi/
-.config/yazi/plugins/smart-enter.yazi/
-.config/yazi/plugins/starship.yazi/
-
 # Fcitx5 generated cache
 .config/fcitx5/conf/cached_layouts
 .config/fcitx5/
