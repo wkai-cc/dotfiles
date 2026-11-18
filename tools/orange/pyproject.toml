@@ -1,0 +1,8 @@
+[project]
+name = "orange"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "orange3>=3.40.0",
+    "pyqt6>=6.11.0",
+]

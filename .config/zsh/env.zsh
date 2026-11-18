@@ -7,9 +7,13 @@ export EDITOR='nvim'
 export LANG=zh_CN.UTF-8
 
 # 输入法 (Fcitx) 兼容性配置
-# 确保 Qt 程序、支持 XIM 协议的应用以及 SDL 游戏能正常调用输入法
+# Qt5 / Qt6 界面
 export QT_IM_MODULE=fcitx
+# GTK3 / GTK4 界面
+export GTK_IM_MODULE=fcitx
+# X11 程序 XWayland、Chromium
 export XMODIFIERS=@im=fcitx
+# SDL 程序 游戏内文本框
 export SDL_IM_MODULE=fcitx
 
 # Wayland 桌面环境特化配置
