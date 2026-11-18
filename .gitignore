@@ -81,3 +81,4 @@ Code/Cache/
 
 # Desktop application associations (machine specific)
 .config/mimeapps.list
+.local/bin/python3.12
